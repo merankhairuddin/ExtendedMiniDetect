@@ -27,7 +27,7 @@ ls /lib/modules/ | while read -r KVER; do
     if [ -f "${MODULE_NAME}.ko" ]; then
         mkdir -p "$OUT_DIR/$KVER"
         cp "${MODULE_NAME}.ko" "$OUT_DIR/$KVER/"
-        echo "     ✅ Build successful: $OUT_DIR/$KVER/${MODULE_NAME}.ko" | tee -a "$LOG_FILE"
+        echo "     [X] Build successful: $OUT_DIR/$KVER/${MODULE_NAME}.ko" | tee -a "$LOG_FILE"
 
         echo " [+] Installing module to $KDEST" | tee -a "$LOG_FILE"
         sudo mkdir -p "$KDEST"
