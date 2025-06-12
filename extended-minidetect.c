@@ -103,31 +103,6 @@ static int detect_tcp_seq_hook(void)
     return found;
 }
 
-static int detect_hidden_sockets(void)
-{
-    struct sock *sk;
-    struct inet_sock *inet;
-    int count = 0;
-
-    read_lock(&tcp_hashinfo.lock);
-    for (int i = 0; i < tcp_hashinfo.ehash_mask + 1; i++) {
-        struct inet_ehash_bucket *head = &tcp_hashinfo.ehash[i];
-        struct hlist_nulls_node *node;
-
-        sk_nulls_for_each(sk, node, &head->chain) {
-            if (sk && sk->sk_state == TCP_ESTABLISHED) {
-                inet = inet_sk(sk);
-                if (!inet->inet_num || !inet->inet_dport) {
-                    log("[ALERT] Hidden socket: Local Port %u\n", ntohs(inet->inet_sport));
-                    count++;
-                }
-            }
-        }
-    }
-    read_unlock(&tcp_hashinfo.lock);
-    return count;
-}
-
 // /proc interface
 #define PROC_NAME "minidetect_status"
 static struct proc_dir_entry *proc_file;
@@ -157,7 +132,6 @@ static int __init minidetect_rootkit_init(void)
     detect_hidden_tasks();
     detect_syscall_hooks();
     detect_tcp_seq_hook();
-  //  detect_hidden_sockets();
 
     proc_file = proc_create(PROC_NAME, 0444, NULL, &proc_fops);
     if (!proc_file)
