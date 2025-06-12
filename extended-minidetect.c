@@ -157,7 +157,7 @@ static int __init minidetect_rootkit_init(void)
     detect_hidden_tasks();
     detect_syscall_hooks();
     detect_tcp_seq_hook();
-    detect_hidden_sockets();
+  //  detect_hidden_sockets();
 
     proc_file = proc_create(PROC_NAME, 0444, NULL, &proc_fops);
     if (!proc_file)
