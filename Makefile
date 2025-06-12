@@ -1,3 +1,4 @@
+EXTRA_CFLAGS += -std=gnu99
 obj-m := extended-minidetect.o
 
 KDIR := /lib/modules/$(shell uname -r)/build
