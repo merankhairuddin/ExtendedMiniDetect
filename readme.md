@@ -38,9 +38,9 @@
 Standard kernel module `Makefile`:
 
 ```bash
-make                # Build minidetect.ko
-sudo make install   # Copy module to kernel dir and run depmod
-sudo modprobe extended_minidetect  # Load the module
+make                
+sudo make install   
+sudo modprobe extended_minidetect  
 ```
 
 To remove:
