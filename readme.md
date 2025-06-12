@@ -29,6 +29,7 @@
 
 - All findings are written to `/proc/minidetect_status`
 - You can read it using:
+  
   ```bash
   cat /proc/minidetect_status
   ```
